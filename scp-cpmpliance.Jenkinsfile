@@ -11,9 +11,7 @@ pipeline {
             yaml podYaml 
         }
     }
-    environment {
-    	ARTIFACT_VERSION = "2.0.0"
-    	}
+ 
     stages {
         stage('Checkout Repo') {
             steps {
@@ -21,13 +19,14 @@ pipeline {
                 echo 'checkout scm'
             }
         }
-	stage('Tag Release') {
-            steps {
-	    	    script {
-                    	tagRelease("${env.ARTIFACT_VERSION}")
-		    }
+        stage('Tag Release') {
+                steps {
+                    script {
+                    def releaseVersion = '2.0.0'// Your desired version number
+                            git remote -v
+                    }
+                }
             }
-        }
         stage('Build') {
             steps {
                 container("base-agent"){
